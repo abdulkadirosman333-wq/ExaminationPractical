@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>ABDUL KADIR DREAM HOUSE</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <!-- <script src="./scripts/aframe.min.js"></script> -->
+    <script src="./scripts/ada-water.js"></script>
+    <script src="https://unpkg.com/aframe-environment-component@1.3.3/dist/aframe-environment-component.min.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <img id="grass" src="./textures/grass1.jpg" alt="" />
+        <img id="sky" src="./textures/sunny-sky1.jpg" alt="" />
+        <img id="house" alt="./assets/scene.gltf" />
+      </a-assets>
+
+      <!-- camera position -->
+      <a-entity position="32 2 2">
+        <a-camera></a-camera>
+      </a-entity>
+
+      <!-- Ambient Light -->
+      <a-entity light="type: ambient;"></a-entity>
+
+      <!-- Directional Light -->
+      <a-entity
+        light="type: directional; color: #EEE; intensity: 0.5"
+        position="-1 1 0"
+      ></a-entity>
+
+      <a-sky
+        src="./textures/sunny-sky.jpg"
+        background-repeat="no-repeat"
+        0rotation="0 64 0"
+      ></a-sky>
+      <a-plane
+        material="src: #grass;
+repeat: 5000 5000"
+        rotation="-90 0 0"
+        scale="10000 10000 1"
+        geometry=""
+      ></a-plane>
+
+      <a-gltf-model
+        position="38 0 5"
+        scale=" 1 1 1"
+        src="./assets/scene.gltf"
+      ></a-gltf-model>
+
+    
+      <!-- walls -->
+
+      <a-water
+        opacity="40"
+        side="double"
+        width="2.1"
+        base-color="lightblue"
+        foam-color="blue"
+        repeat="2"
+        voronoi-points="5"
+        rotation="90 0 0"
+        position="22.335 0.200 -14.757"
+        scale="2.6 1.1 1.0"
+        animation="property: scale; dur: 50; loop: NaN; dir: alternate; easing: easeOutElastic"
+        material="shader: water; transparent: true; repeat: 200 1; map: [object Object]; basecolor: lightblue"
+      >
+      </a-water>
+    </a-scene>
+
+    <script>
+        AFRAME.registerComponent("modify-materials", {
+        init: function () {
+          // Wait for model to load.
+          this.el.addEventListener("model-loaded", () => {
+            // Grab the mesh / scene.
+            const obj = this.el.getObject3D("mesh");
+            // Go over the submeshes and modify materials we want.
+            obj.traverse((node) => {
+              if (node.isMesh) {
+                node.material.color.set("black"); // Change color to red.
+              }
+            });
+          });
+        },
+      });
+    </script>
+
+    <script>
+      document.querySelector("a-water").setAttribute("animation", {
+        property: "scale",
+        // from: "10 2 1",
+        // to: "2 15 2",
+        dur: 150,
+        loop: true,
+        dir: "alternate",
+        easing: "easeOutElastic",
+      });
+    </script>
+  </body>
+</html>
