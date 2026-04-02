@@ -11,7 +11,7 @@
   </head>
   <body>
     <a-scene>
-      <a-assets>
+      <a-assets timeout="20000">
         <img id="grass" src="./textures/grass1.jpg" alt="" />
         <img id="sky" src="./textures/sunny-sky1.jpg" alt="" />
         <img id="house" alt="./assets/scene.gltf" />
@@ -93,7 +93,7 @@ repeat: 5000 5000"
         property: "scale",
         // from: "10 2 1",
         // to: "2 15 2",
-        dur: 150,
+        dur: 20000,
         loop: true,
         dir: "alternate",
         easing: "easeOutElastic",
